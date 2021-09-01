@@ -126,7 +126,7 @@ describe("landing page test", () => {
     });
   });
 
-  it.only("footer section test", () => {
+  it("footer section test", () => {
     cy.get("footer").within(() => {
       cy.get("img").should("be.visible");
       cy.get("a").should("have.length", 9);
