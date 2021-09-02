@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 describe("user authentication", () => {
   beforeEach(() => {
+    cy.viewport("macbook-16");
     cy.fixture("credentials").as("data");
   });
 
@@ -49,5 +50,21 @@ describe("user authentication", () => {
       cy.location("pathname").should("eq", "/sign_in");
       cy.contains(data.emailConfirmationMessage).should("exist");
     });
+  });
+
+  it("should sign up", () => {
+    cy.visit("/");
+    cy.get(".link-login").click();
+    cy.get(".signup-link").click();
+    cy.get('[data-target="validation.nameField"]').type("chui mui");
+    cy.get("#user_email").type("chuimui@gmail.com");
+    cy.get('[data-target="validation.passwordField"]').type("Circle@123");
+    // checking I am not robot captcha
+    cy.get("iframe")
+      .its("0.contentDocument.body")
+      .then(cy.wrap)
+      .find("#recaptcha-anchor")
+      .should("be.visible")
+      .click();
   });
 });
