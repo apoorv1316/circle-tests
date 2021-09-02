@@ -1,1 +1,7 @@
-{}
+{
+"baseUrl": "https://circle.so",
+"env":{
+  "forgotPasswordUrl": "https://login.circle.so/users/password/new"
+},
+"chromeWebSecurity": false
+}

@@ -22,4 +22,11 @@
 //
 //
 // -- This will overwrite an existing command --
+
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("login", (email, password) => {
+  cy.visit("https://login.circle.so/sign_in#email");
+  cy.get('[data-target="signin.email"]').type(email);
+  cy.get("#user_password").type(password);
+  cy.get('[data-disable-with="Log in"]').click();
+});
