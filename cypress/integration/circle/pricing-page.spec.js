@@ -83,4 +83,41 @@ describe("landing page test", () => {
       cy.get("a").should("have.length", 9);
     });
   });
+
+  it("trial button should have a href property", () => {
+    cy.get(".c-btn-white").should(
+      "have.attr",
+      "href",
+      "https://circle.so/start"
+    );
+  });
+
+  it.only("footer links should have a href property", () => {
+    cy.get(".footer-link")
+      .eq(0)
+      .should("have.attr", "href", "https://circle.so");
+    cy.get(".footer-link")
+      .eq(1)
+      .should("have.attr", "href", "https://circle.so/pricing");
+    cy.get(".footer-link")
+      .eq(2)
+      .should(
+        "have.attr",
+        "href",
+        "https://community.circle.so/c/knowledge-base"
+      );
+    cy.get(".footer-link")
+      .eq(3)
+      .should(
+        "have.attr",
+        "href",
+        "https://community.circle.so/c/product-updates"
+      );
+    cy.get(".footer-link")
+      .eq(4)
+      .should("have.attr", "href", "https://app.circle.so/users/sign_in");
+    cy.get(".footer-link")
+      .eq(5)
+      .should("have.attr", "href", "https://circle.so/start");
+  });
 });
