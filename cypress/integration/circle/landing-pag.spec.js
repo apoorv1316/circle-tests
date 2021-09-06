@@ -3,16 +3,16 @@
 describe("landing page test", () => {
   beforeEach(() => {
     cy.viewport("macbook-16");
-    cy.visit("https://circle.so/");
+    cy.visit("/");
   });
 
-  it("heading test", () => {
+  it("should have a heading", () => {
     cy.get("h1").should(
       "have.text",
       "The modern community platform for creators"
     );
   });
-  it("navigation test", () => {
+  it("should have a navbar", () => {
     cy.get("nav")
       .should("contain", "Pricing")
       .and("contain", "Login")
@@ -25,17 +25,17 @@ describe("landing page test", () => {
     cy.go("back");
   });
 
-  it("images test", () => {
+  it("should have images", () => {
     cy.get('[alt="We love creators!"]').should("be.visible");
     cy.get(".creator-grid-left-img").should("be.visible");
     cy.get(".creator-grid-right-img").should("be.visible");
   });
 
-  it("free trial button test", () => {
+  it("should have afree trial button", () => {
     cy.contains("Start your 14-day free trial").click;
   });
 
-  it("features section tests", () => {
+  it("should have a features section", () => {
     cy.get(".section-features-grid").within(() => {
       cy.get("h2")
         .contains("Easily set up a premium community for every use-case")
@@ -49,14 +49,14 @@ describe("landing page test", () => {
     });
   });
 
-  it("creator grid tests", () => {
+  it("should have a creator grid", () => {
     cy.get(".section-built-for-creators").within(() => {
       cy.get("h2").should("have.text", "We built Circle forcreators like you");
       cy.get(".w-button").should("be.visible").click();
     });
   });
 
-  it("instructions section", () => {
+  it("should have an instructions section", () => {
     cy.get(".section-instructions").within(() => {
       cy.get("h2")
         .contains("Organize your discussions in public or private spaces")
@@ -70,7 +70,7 @@ describe("landing page test", () => {
     });
   });
 
-  it("section features engagement test", () => {
+  it("should have a section features engagement", () => {
     cy.get(".section-feature-engagement").within(() => {
       cy.get("h2")
         .contains("Built for engaging discussions and connections")
@@ -82,7 +82,7 @@ describe("landing page test", () => {
     cy.get(".testimonial-title").should("be.visible");
   });
 
-  it("section features white label test", () => {
+  it("should have a section features white label", () => {
     cy.get(".section-feature-white-label").within(() => {
       cy.get("h2")
         .contains("A premium, white-labeled community experience")
@@ -91,7 +91,7 @@ describe("landing page test", () => {
     });
   });
 
-  it("integration section features test", () => {
+  it("should have integration section features", () => {
     cy.get(".section-feature-integrations").within(() => {
       cy.get("h2")
         .contains("Easily connects with the tools you already use")
@@ -100,7 +100,7 @@ describe("landing page test", () => {
     });
   });
 
-  it("testimonials section tests", () => {
+  it("should have testimonials section", () => {
     cy.get(".section-wall-of-love").within(() => {
       cy.get("h2")
         .contains("Creators are building thriving communities on Circle")
@@ -111,7 +111,7 @@ describe("landing page test", () => {
     cy.get(".testimonial-box").should("have.length", 32);
   });
 
-  it("testimonial jay clouse test", () => {
+  it("should have testimonial jay clouse", () => {
     cy.get(".section-cta").within(() => {
       cy.get("h2")
         .contains(
@@ -126,7 +126,7 @@ describe("landing page test", () => {
     });
   });
 
-  it("footer section test", () => {
+  it("should have a footer section", () => {
     cy.get("footer").within(() => {
       cy.get("img").should("be.visible");
       cy.get("a").should("have.length", 9);
