@@ -4,5 +4,4 @@
   "forgotPasswordUrl": "https://login.circle.so/users/password/new",
   "pricingUrl": "https://circle.so/pricing"
 },
-"chromeWebSecurity": false
 }
