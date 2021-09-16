@@ -124,7 +124,7 @@ describe("dasboard", () => {
     });
   });
 
-  it.only("should create a post with a unsplash image using search feature", () => {
+  it("should create a post with a unsplash image using search feature", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
     cy.get(".react-space-selector-dropdown__name").click({ force: true });
@@ -137,6 +137,45 @@ describe("dasboard", () => {
       cy.wait(5000);
       cy.get(".unsplash-tab__result").eq(0).click();
       cy.wait(5000);
+      cy.get(".quickpost-modal__footer--actions").within(() => {
+        cy.get("button").click();
+      });
+    });
+  });
+
+  it("should create a post with a yt video embeded", ()=>{
+    cy.get("#sidebar--right__btn-quick-post").click();
+    cy.get(".react-space-selector__space-name").click();
+    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get("@data").then((data) => {
+      cy.get("#post_name").type(data.postTitle);
+      cy.get("trix-editor").type("post with an embeded youtube video");
+      cy.get(".toolbar__btn").eq(1).click({ force: true });
+      cy.get(".tab-list-item").eq(1).click();
+      cy.get(".upload-input").type(data.youtubeUrl);
+      cy.get(".upload-btn").click();
+      cy.wait(5000);
+      cy.get(".quickpost-modal__footer--actions").within(() => {
+        cy.get("button").click();
+      });
+      cy.wait(5000)
+      cy.get('iframe').should('be.visible')
+    });
+  })
+
+  it.only("should create a post with a drag and drop video", () => {
+    cy.get("#sidebar--right__btn-quick-post").click();
+    cy.get(".react-space-selector__space-name").click();
+    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get("@data").then((data) => {
+      cy.get("#post_name").type(data.postTitle);
+      cy.get("trix-editor").type("post with a drag and drop video");
+      cy.get(".toolbar__btn").eq(2).click({ force: true });
+      cy.get(".upload-box").attachFile("sample.mp4", {
+        subjectType: "drag-n-drop",
+      });
+      cy.wait(10000);
+      cy.get("figure").should("be.visible");
       cy.get(".quickpost-modal__footer--actions").within(() => {
         cy.get("button").click();
       });
