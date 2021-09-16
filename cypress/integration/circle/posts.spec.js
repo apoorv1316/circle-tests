@@ -163,7 +163,7 @@ describe("dasboard", () => {
     });
   })
 
-  it.only("should create a post with a drag and drop video", () => {
+  it("should create a post with a drag and drop video", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
     cy.get(".react-space-selector-dropdown__name").click({ force: true });
@@ -176,6 +176,25 @@ describe("dasboard", () => {
       });
       cy.wait(10000);
       cy.get("figure").should("be.visible");
+      cy.get(".quickpost-modal__footer--actions").within(() => {
+        cy.get("button").click();
+      });
+    });
+  });
+
+  it.only("should create a post with a gif", () => {
+    cy.get("#sidebar--right__btn-quick-post").click();
+    cy.get(".react-space-selector__space-name").click();
+    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get("@data").then((data) => {
+      cy.get("#post_name").type(data.postTitle);
+      cy.get("trix-editor").type("post with a doggy gif");
+      cy.get(".toolbar__btn").eq(3).click({ force: true });
+      cy.get(".giphy-input").type("dog");
+      cy.wait(3000)
+      cy.get("img").eq(0).click({force: true});
+      cy.wait(5000);
+      cy.get("figure").should('be.visible')
       cy.get(".quickpost-modal__footer--actions").within(() => {
         cy.get("button").click();
       });
