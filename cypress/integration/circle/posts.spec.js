@@ -218,4 +218,48 @@ describe("dasboard", () => {
     })
     cy.get('.trix-content').should('be.visible')
   })
+
+  it("should delete a post",()=>{
+    // creating a post
+    cy.get("#sidebar--right__btn-quick-post").click();
+    cy.get(".react-space-selector__space-name").click();
+    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get("trix-editor").type("this post willl be deleted");
+    cy.get(".quickpost-modal__footer--actions").within(() => {
+      cy.get("button").click();
+    });
+    cy.wait(2000);
+    cy.contains("this post willl be deleted").should("be.visible");
+
+    // deleting the created post
+    cy.get('.action-link').eq(2).click()
+    cy.get('[data-method="delete"]').click()
+    cy.get('[data-behavior="commit"]').click()
+    cy.contains("this post willl be deleted").should('not.exist');
+  })
+
+  it("should pin a post to the top", ()=>{
+    cy.get('.space__name').eq(1).click()
+    cy.get('.action-link').eq(0).click({force: true})
+    // cy.get('div[role="button"]')
+    cy.contains('Pin to top').click({force: true})
+    cy.get('.post__pin').should('be.visible')
+  })
+  it("should pin a post to the sidebar", ()=>{
+    cy.get('.space__name').eq(1).click()
+    cy.get('.action-link').eq(0).click({force: true})
+    cy.contains('Pin to sidebar').click({force: true})
+    cy.get('.ul--pinned-posts').should('be.visible')
+  })
+  it.only("should edit a post",()=>{
+    cy.get('.space__name').eq(1).click()
+    cy.contains("Edit post").click({force: true})
+    cy.get('trix-editor').clear().type('edited post')
+    cy.get(".quickpost-modal__footer--actions").within(() => {
+      cy.get("button").click();
+    });
+    cy.wait(2000)
+    cy.contains('edited post').should('be.visible')
+  })
+
 });
