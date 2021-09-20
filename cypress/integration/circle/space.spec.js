@@ -3,11 +3,6 @@ describe("dasboard", () => {
   beforeEach(() => {
     cy.viewport("macbook-16");
     cy.fixture("credentials").as("data");
-    // cy.visit("https://login.circle.so/sign_in?request_host=app.circle.so");
-    // cy.get(".btn.btn-primary.btn-center-wide").click();
-    // cy.get("#user_email").type("tiwari.apoorv1316@gmail.com");
-    // cy.get("#user_password").type("Circle@123");
-    // cy.get('input[value="Log in"]').click();
     cy.get("@data").then((data) => {
       cy.login(data.correctEmail, data.correctPassword);
     });
@@ -18,4 +13,44 @@ describe("dasboard", () => {
     cy.get('[data-target="form.inputName"]').type("space101");
     cy.get(".create-space").click();
   });
+  it('should create an open space',()=>{
+    cy.get('.icon-circle-add').eq(0).click({force: true})
+    cy.get('input[name="name"]').type('open space')
+    cy.get('button[name="open"]').click()
+    cy.get('.multi-step-panel__actions').within(()=>{
+      cy.contains('Next').click()
+    })
+    cy.get('button[name="none"]').click()
+    cy.contains("Finish").click()
+    cy.contains('open space').should('be.visible')
+  })
+  it('should create an open space',()=>{
+    cy.get('.icon-circle-add').eq(0).click({force: true})
+    cy.get('input[name="name"]').type('private space')
+    cy.get('button[name="private"]').click()
+    cy.get('.multi-step-panel__actions').within(()=>{
+      cy.contains('Next').click()
+    })
+    cy.get('input[name="locked_page_heading"]').type("private space")
+    cy.get('trix-editor').type("description for private space")
+    cy.get('input[name="locked_button_label"]').type("Sign up")
+    cy.get('input[name="locked_button_url"]').type('https://domain.com/signup-cta"')
+    cy.get('.multi-step-panel__actions').eq(2).within(()=>{
+      cy.get('button').eq(0).click({force: true})
+    })
+    cy.get('button[name="none"]').click()
+    cy.contains("Finish").click()
+  })
+  it.only('should create a secret space',()=>{
+    cy.get('.icon-circle-add').eq(0).click({force: true})
+    cy.get('input[name="name"]').type('secret space')
+    cy.get('button[name="secret"]').click()
+    cy.get('.multi-step-panel__actions').within(()=>{
+      cy.contains('Next').click()
+    })
+    cy.get('button[name="none"]').click()
+    cy.contains("Finish").click()
+    cy.get('.title-name').should('be.visible')
+  })
+
 });
