@@ -182,7 +182,7 @@ describe("dasboard", () => {
     });
   });
 
-  it.only("should create a post with a gif", () => {
+  it("should create a post with a gif", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
     cy.get(".react-space-selector-dropdown__name").click({ force: true });
@@ -200,4 +200,22 @@ describe("dasboard", () => {
       });
     });
   });
+
+  it("should like a created post", ()=>{
+    cy.get('.space__name').eq(1).click()
+    cy.get('.icon-like').click()
+    cy.get('div').should('have.class', 'engagement__members--descriptor')
+  })
+
+  it('should add a comment to a post', ()=>{
+    cy.get('.space__name').eq(1).click()
+    cy.get('.trix-content').should('not.exist')
+
+    cy.get('.icon-message').click()
+    cy.get('trix-editor').type('it is a comment')
+    cy.get('.btn-post-reply').within(()=>{
+      cy.get('button').click()
+    })
+    cy.get('.trix-content').should('be.visible')
+  })
 });
