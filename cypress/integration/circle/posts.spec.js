@@ -1,4 +1,7 @@
 /// <reference types="cypress" />
+
+const { eq } = require("lodash");
+
 describe("dasboard", () => {
   beforeEach(() => {
     cy.viewport("macbook-16");
@@ -23,7 +26,7 @@ describe("dasboard", () => {
   it("should create a post with a space", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
-    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get(".react-space-selector-dropdown__name").eq(0).click({ force: true });
     cy.get("trix-editor").type("hi there");
     cy.get(".quickpost-modal__footer--actions").within(() => {
       cy.get("button").click();
@@ -35,7 +38,7 @@ describe("dasboard", () => {
   it("should create a post with a title", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
-    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get(".react-space-selector-dropdown__name").eq(0).click({ force: true });
     cy.get("@data").then((data) => {
       cy.get("#post_name").type(data.postTitle);
       cy.get("trix-editor").type("hi there");
@@ -50,7 +53,7 @@ describe("dasboard", () => {
   it("should create a post with an attachment", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
-    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get(".react-space-selector-dropdown__name").eq(0).click({ force: true });
     cy.get("@data").then((data) => {
       cy.get("#post_name").type(data.postTitle);
       cy.get("trix-editor").type("post with an attachment");
@@ -67,7 +70,7 @@ describe("dasboard", () => {
   it("should create a post with a drag and drop image", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
-    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get(".react-space-selector-dropdown__name").eq(0).click({ force: true });
     cy.get("@data").then((data) => {
       cy.get("#post_name").type(data.postTitle);
       cy.get("trix-editor").type("post with a drag and drop image");
@@ -86,7 +89,7 @@ describe("dasboard", () => {
   it("should create a post with an embeded image", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
-    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get(".react-space-selector-dropdown__name").eq(0).click({ force: true });
     cy.get("@data").then((data) => {
       cy.get("#post_name").type(data.postTitle);
       cy.get("trix-editor").type("post with an embeded image");
@@ -110,7 +113,7 @@ describe("dasboard", () => {
   it("should create a post with a unsplash image", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
-    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get(".react-space-selector-dropdown__name").eq(0).click({ force: true });
     cy.get("@data").then((data) => {
       cy.get("#post_name").type(data.postTitle);
       cy.get("trix-editor").type("post with a unsplash image");
@@ -127,7 +130,7 @@ describe("dasboard", () => {
   it("should create a post with a unsplash image using search feature", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
-    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get(".react-space-selector-dropdown__name").eq(0).click({ force: true });
     cy.get("@data").then((data) => {
       cy.get("#post_name").type(data.postTitle);
       cy.get("trix-editor").type("post with a unsplash image using search");
@@ -146,7 +149,7 @@ describe("dasboard", () => {
   it("should create a post with a yt video embeded", ()=>{
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
-    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get(".react-space-selector-dropdown__name").eq(0).click({ force: true });
     cy.get("@data").then((data) => {
       cy.get("#post_name").type(data.postTitle);
       cy.get("trix-editor").type("post with an embeded youtube video");
@@ -166,7 +169,7 @@ describe("dasboard", () => {
   it("should create a post with a drag and drop video", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
-    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get(".react-space-selector-dropdown__name").eq(0).click({ force: true });
     cy.get("@data").then((data) => {
       cy.get("#post_name").type(data.postTitle);
       cy.get("trix-editor").type("post with a drag and drop video");
@@ -185,7 +188,7 @@ describe("dasboard", () => {
   it("should create a post with a gif", () => {
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
-    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get(".react-space-selector-dropdown__name").eq(0).click({ force: true });
     cy.get("@data").then((data) => {
       cy.get("#post_name").type(data.postTitle);
       cy.get("trix-editor").type("post with a doggy gif");
@@ -201,17 +204,17 @@ describe("dasboard", () => {
     });
   });
 
-  it("should like a created post", ()=>{
-    cy.get('.space__name').eq(1).click()
-    cy.get('.icon-like').click()
+  it.only("should like a created post", ()=>{
+    cy.get('.space__name').eq(0).click({force: true})
+    cy.get('.icon-like').eq(0).click()
     cy.get('div').should('have.class', 'engagement__members--descriptor')
   })
 
-  it('should add a comment to a post', ()=>{
-    cy.get('.space__name').eq(1).click()
+  it.only('should add a comment to a post', ()=>{
+    cy.get('.space__name').eq(0).click({force: true})
     cy.get('.trix-content').should('not.exist')
 
-    cy.get('.icon-message').click()
+    cy.get('.icon-message').eq(0).click()
     cy.get('trix-editor').type('it is a comment')
     cy.get('.btn-post-reply').within(()=>{
       cy.get('button').click()
@@ -219,11 +222,11 @@ describe("dasboard", () => {
     cy.get('.trix-content').should('be.visible')
   })
 
-  it("should delete a post",()=>{
+  it.only("should delete a post",()=>{
     // creating a post
     cy.get("#sidebar--right__btn-quick-post").click();
     cy.get(".react-space-selector__space-name").click();
-    cy.get(".react-space-selector-dropdown__name").click({ force: true });
+    cy.get(".react-space-selector-dropdown__name").eq(0).click({ force: true });
     cy.get("trix-editor").type("this post willl be deleted");
     cy.get(".quickpost-modal__footer--actions").within(() => {
       cy.get("button").click();
@@ -239,20 +242,20 @@ describe("dasboard", () => {
   })
 
   it("should pin a post to the top", ()=>{
-    cy.get('.space__name').eq(1).click()
+    cy.get('.space__name').eq(0).click({force: true})
     cy.get('.action-link').eq(0).click({force: true})
     // cy.get('div[role="button"]')
     cy.contains('Pin to top').click({force: true})
     cy.get('.post__pin').should('be.visible')
   })
   it("should pin a post to the sidebar", ()=>{
-    cy.get('.space__name').eq(1).click()
+    cy.get('.space__name').eq(0).click({force: true})
     cy.get('.action-link').eq(0).click({force: true})
     cy.contains('Pin to sidebar').click({force: true})
     cy.get('.ul--pinned-posts').should('be.visible')
   })
-  it.only("should edit a post",()=>{
-    cy.get('.space__name').eq(1).click()
+  it("should edit a post",()=>{
+    cy.get('.space__name').eq(0).click({force: true})
     cy.contains("Edit post").click({force: true})
     cy.get('trix-editor').clear().type('edited post')
     cy.get(".quickpost-modal__footer--actions").within(() => {
