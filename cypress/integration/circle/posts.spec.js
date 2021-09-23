@@ -204,13 +204,13 @@ describe("dasboard", () => {
     });
   });
 
-  it.only("should like a created post", ()=>{
+  it("should like a created post", ()=>{
     cy.get('.space__name').eq(0).click({force: true})
     cy.get('.icon-like').eq(0).click()
     cy.get('div').should('have.class', 'engagement__members--descriptor')
   })
 
-  it.only('should add a comment to a post', ()=>{
+  it('should add a comment to a post', ()=>{
     cy.get('.space__name').eq(0).click({force: true})
     cy.get('.trix-content').should('not.exist')
 
@@ -236,9 +236,8 @@ describe("dasboard", () => {
 
     // deleting the created post
     cy.get('.action-link').eq(2).click()
-    cy.get('[data-method="delete"]').click()
+    cy.get('[data-confirm="Are you sure you want to delete this post?"]').click()
     cy.get('[data-behavior="commit"]').click()
-    cy.contains("this post willl be deleted").should('not.exist');
   })
 
   it("should pin a post to the top", ()=>{
