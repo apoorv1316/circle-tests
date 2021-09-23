@@ -21,4 +21,16 @@ describe("invite member", () => {
     })
   })
 
+  it.only("should create a member tag",()=>{
+    cy.get('a[data-tippy-content="Settings"]').click()
+    cy.get('a[href="/settings/member_tags"]').eq(1).click()
+    cy.get('#member_tag_name').type("Tag1")
+    cy.get('.emoji-picker__placeholder').click()
+    cy.get('button[aria-label="😃, smiley"]').click()
+    cy.get('[data-target="colorpicker.colorInput"]').clear().type('#1B38C0')
+    cy.get('.search-input').type('Appu Tiwari{enter}')
+    cy.get('.form-button').within(()=>{
+      cy.get('button').click()
+    })
+  })
 })
