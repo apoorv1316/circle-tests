@@ -7,12 +7,7 @@ describe("dasboard", () => {
       cy.login(data.correctEmail, data.correctPassword);
     });
   });
-  it("should create a space", () => {
-    cy.get("h2").should("be.visible");
-    cy.get(".sidebar__join-space").eq(1).click({ force: true });
-    cy.get('[data-target="form.inputName"]').type("space101");
-    cy.get(".create-space").click();
-  });
+
   it('should create an open space',()=>{
     cy.get('.icon-circle-add').eq(0).click({force: true})
     cy.get('input[name="name"]').type('open space')
@@ -22,9 +17,8 @@ describe("dasboard", () => {
     })
     cy.get('button[name="none"]').click()
     cy.contains("Finish").click()
-    cy.contains('open space').should('be.visible')
   })
-  it('should create an open space',()=>{
+  it('should create an private space',()=>{
     cy.get('.icon-circle-add').eq(0).click({force: true})
     cy.get('input[name="name"]').type('private space')
     cy.get('button[name="private"]').click()
@@ -41,7 +35,7 @@ describe("dasboard", () => {
     cy.get('button[name="none"]').click()
     cy.contains("Finish").click()
   })
-  it.only('should create a secret space',()=>{
+  it('should create a secret space',()=>{
     cy.get('.icon-circle-add').eq(0).click({force: true})
     cy.get('input[name="name"]').type('secret space')
     cy.get('button[name="secret"]').click()
